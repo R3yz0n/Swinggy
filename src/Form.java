@@ -1,109 +1,118 @@
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-
+import java.sql.SQLException;
 
 public class Form {
-    public static void main(String[] args) {
-        JFrame frame = new JFrame("User Form");
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setResizable(false);
-        frame.setSize(400, 460);
+	public static void main(String[] args) throws SQLException {
+		JFrame frame = new JFrame("Flood Fill the Form");
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.setSize(500, 420);
+		frame.setResizable(false);
 
-        JPanel mainPanel = new JPanel();
-        mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.Y_AXIS));
+		// Main panel with BorderLayout and outer padding
+		JPanel mainPanel = new JPanel(new BorderLayout());
+		mainPanel.setBorder(BorderFactory.createEmptyBorder(30, 30, 30, 30)); // Outer padding
 
-        JLabel formInfo = new JLabel("Hola!  \uD83D\uDC4B\uD83C\uDFFC");
+		// Center panel to hold form fields with inner padding
+		JPanel centerPanel = new JPanel();
+		centerPanel.setLayout(new BoxLayout(centerPanel, BoxLayout.Y_AXIS));
+		centerPanel.setBorder(BorderFactory.createEmptyBorder(10, 0, 10, 0)); // Top padding for the first panel
 
-        JPanel namePanel = new JPanel();
-        JLabel nameLabel = new JLabel("Name:");
-        JTextField nameField = new JTextField(20);
-        namePanel.add(nameLabel);
-        namePanel.add(nameField);
+		// Name panel
+		JPanel namePanel = new JPanel(new BorderLayout());
+		JLabel nameLabel = new JLabel("Name:");
+		JTextField nameField = new JTextField(20);
+		namePanel.add(nameLabel, BorderLayout.NORTH);
+		namePanel.add(nameField, BorderLayout.CENTER);
+		centerPanel.add(namePanel);
 
-        JPanel emailPanel = new JPanel();
-        JLabel emailLabel = new JLabel("Email:");
-        JTextField emailField = new JTextField(20);
-        emailPanel.add(emailLabel);
-        emailPanel.add(emailField);
+		// Email panel
+		JPanel emailPanel = new JPanel(new BorderLayout());
+		JLabel emailLabel = new JLabel("Email:");
+		JTextField emailField = new JTextField(20);
+		emailPanel.add(emailLabel, BorderLayout.NORTH);
+		emailPanel.add(emailField, BorderLayout.CENTER);
+		centerPanel.add(emailPanel);
 
-        JPanel passwordPanel = new JPanel();
-        JLabel passwordLabel = new JLabel("Password: ");
-        JPasswordField passwordField = new JPasswordField(20);
-        passwordPanel.add(passwordLabel);
-        passwordPanel.add(passwordField);
+		// Password panel
+		JPanel passwordPanel = new JPanel(new BorderLayout());
+		JLabel passwordLabel = new JLabel("Password:");
+		JPasswordField passwordField = new JPasswordField(20);
+		passwordPanel.add(passwordLabel, BorderLayout.NORTH);
+		passwordPanel.add(passwordField, BorderLayout.CENTER);
+		centerPanel.add(passwordPanel);
 
-        JPanel genderPanel = new JPanel();
-        JLabel genderLabel = new JLabel("Gender: ");
+		// Gender panel with radio buttons
+		JPanel genderPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
+		JLabel genderLabel = new JLabel("Gender:");
+		genderPanel.add(genderLabel);
 
-        ButtonGroup genderGroup = new ButtonGroup();
+		ButtonGroup genderGroup = new ButtonGroup();
+		JRadioButton male = new JRadioButton("Male");
+		JRadioButton female = new JRadioButton("Female");
+		JRadioButton other = new JRadioButton("Others");
 
-        JRadioButton male = new JRadioButton("male");
-        JRadioButton female = new JRadioButton("female");
-        JRadioButton others = new JRadioButton("prefer not to say");
+		genderGroup.add(male);
+		genderGroup.add(female);
+		genderGroup.add(other);
 
-        genderGroup.add(male);
-        genderGroup.add(female);
-        genderGroup.add(others);
+		genderPanel.add(male);
+		genderPanel.add(female);
+		genderPanel.add(other);
 
-        genderPanel.add(genderLabel);
-        genderPanel.add(male);
-        genderPanel.add(female);
-        genderPanel.add(others);
+		centerPanel.add(genderPanel);
 
-        JPanel messagePanel = new JPanel();
-        JLabel messageLabel = new JLabel("Message: ");
-        JTextArea messageArea = new JTextArea("this is ...", 5, 20);
-        messagePanel.add(messageLabel);
-        messagePanel.add(messageArea);
+		// Desc
+		JPanel descriptionPanel = new JPanel(new BorderLayout());
+		JLabel descriptionLabel = new JLabel("Description:");
+		JTextArea descriptionArea = new JTextArea(5, 20);
+		descriptionArea.setLineWrap(true);
+		JScrollPane scrollPane = new JScrollPane(descriptionArea);
+		descriptionPanel.add(descriptionLabel, BorderLayout.NORTH);
+		descriptionPanel.add(scrollPane, BorderLayout.CENTER);
+		centerPanel.add(descriptionPanel);
 
-        mainPanel.add(formInfo);
-        mainPanel.add(namePanel);
-        mainPanel.add(emailPanel);
-        mainPanel.add(passwordPanel);
-        mainPanel.add(genderPanel);
-        mainPanel.add(messagePanel);
+		// Add centerPanel to mainPanel
+		mainPanel.add(centerPanel, BorderLayout.CENTER);
 
-        JPanel buttonPanel = new JPanel();
-        JButton submitBtn = new JButton();
-        submitBtn.setText("Submit");
+		// Button panel
+		JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
+		JButton submitBtn = new JButton("Submit");
 
-        submitBtn.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                String name = nameField.getText();
-                String email = emailField.getText();
-                String password = new String(passwordField.getPassword());
-                
-                String selectedGender = "";
-                if (male.isSelected()) {
-                    selectedGender = "male";
-                } else if (female.isSelected()) {
-                    selectedGender = "female";
-                } else if (others.isSelected()) {
-                    selectedGender = "others";
-                }
-                
-                String message = messageArea.getText();
+		// ActionListener for Submit button
+		submitBtn.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// Retrieve input values
+				String name = nameField.getText();
+				String email = emailField.getText();
+				String password = new String(passwordField.getPassword());
 
-                System.out.println("Name: " + name);
-                System.out.println("Email: " + email);
-                System.out.println("Password: " + password); // Password might be visible for demo
-                System.out.println("Gender: " + selectedGender);
-                System.out.println("Message: " + message);
-            }
-        });
+				String gender = "";
+				if (male.isSelected()) {
+					gender = "male";
+				} else if (female.isSelected()) {
+					gender = "female";
+				} else if (other.isSelected()) {
+					gender = "others";
+				}
 
-        buttonPanel.add(submitBtn);
+				String message = descriptionArea.getText();
 
-        frame.setLayout(new BorderLayout());
-        frame.add(mainPanel, BorderLayout.CENTER);
-        frame.add(buttonPanel, BorderLayout.SOUTH);
+				Person p = new Person(name, email, password, gender, message);
+				p.connect();
+				p.insertPerson();
 
-        frame.setVisible(true);
-//        frame.pack();
-    }
+			}
+		});
+
+		buttonPanel.add(submitBtn);
+
+		mainPanel.add(buttonPanel, BorderLayout.SOUTH);
+
+		frame.add(mainPanel);
+		frame.setVisible(true);
+	}
 }
-
