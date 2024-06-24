@@ -13,14 +13,14 @@ public class Form {
 
 		// Main panel with BorderLayout and outer padding
 		JPanel mainPanel = new JPanel(new BorderLayout());
-		mainPanel.setBorder(BorderFactory.createEmptyBorder(30, 30, 30, 30)); // Outer padding
+		mainPanel.setBorder(BorderFactory.createEmptyBorder(30, 30, 30, 30)); 
 
 		// Center panel to hold form fields with inner padding
 		JPanel centerPanel = new JPanel();
 		centerPanel.setLayout(new BoxLayout(centerPanel, BoxLayout.Y_AXIS));
-		centerPanel.setBorder(BorderFactory.createEmptyBorder(10, 0, 10, 0)); // Top padding for the first panel
+		centerPanel.setBorder(BorderFactory.createEmptyBorder(10, 0, 10, 0)); 
 
-		// Name panel
+		// Name 
 		JPanel namePanel = new JPanel(new BorderLayout());
 		JLabel nameLabel = new JLabel("Name:");
 		JTextField nameField = new JTextField(20);
@@ -36,7 +36,7 @@ public class Form {
 		emailPanel.add(emailField, BorderLayout.CENTER);
 		centerPanel.add(emailPanel);
 
-		// Password panel
+		// Password 
 		JPanel passwordPanel = new JPanel(new BorderLayout());
 		JLabel passwordLabel = new JLabel("Password:");
 		JPasswordField passwordField = new JPasswordField(20);
@@ -44,8 +44,8 @@ public class Form {
 		passwordPanel.add(passwordField, BorderLayout.CENTER);
 		centerPanel.add(passwordPanel);
 
-		// Gender panel with radio buttons
-		JPanel genderPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
+		// Gender
+		JPanel genderPanel = new JPanel(new FlowLayoutExample(FlowLayoutExample.LEFT));
 		JLabel genderLabel = new JLabel("Gender:");
 		genderPanel.add(genderLabel);
 
@@ -78,7 +78,7 @@ public class Form {
 		mainPanel.add(centerPanel, BorderLayout.CENTER);
 
 		// Button panel
-		JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
+		JPanel buttonPanel = new JPanel(new FlowLayoutExample(FlowLayoutExample.CENTER));
 		JButton submitBtn = new JButton("Submit");
 
 		// ActionListener for Submit button
