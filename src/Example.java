@@ -35,7 +35,7 @@ public class Example {
     panel.add(TArea);
 
     JTextArea textarea = new JTextArea(10, 20);
-    textarea.setLineWrap(true); // setLineWrap will automatically break too long line and continue on next line.
+    textarea.setLineWrap(true); 
     textarea.setWrapStyleWord(true);
 
     JScrollPane scrollPane = new JScrollPane(textarea);
