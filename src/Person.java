@@ -14,6 +14,10 @@ public class Person {
 	private String password;
 	private String gender;
 	private String description;
+	
+
+
+
 
 	public Person(String name, String email, String password, String gender, String description) {
 		this.name = name;
