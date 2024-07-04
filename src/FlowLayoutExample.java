@@ -32,6 +32,7 @@ public class FlowLayoutExample {
 		frameObj.add(b8);
 		frameObj.add(b9);
 		frameObj.add(b10);
+		new GridLayout(5,10,15,20);
 
 
 		
